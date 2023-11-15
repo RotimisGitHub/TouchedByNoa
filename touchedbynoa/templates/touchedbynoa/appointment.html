@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'touchedbynoa/_base.html' %}
+{% load tailwind_filters %}
+{% load static %}
+<head>
+    {% block content %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>Book Appointment</title>
+
+    <!-- Google font -->
+    <link href="http://fonts.googleapis.com/css?family=Playfair+Display:900" rel="stylesheet" type="text/css"/>
+    <link href="http://fonts.googleapis.com/css?family=Alice:400,700" rel="stylesheet" type="text/css"/>
+
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap2.min.css' %}"/>
+
+    <!-- Custom stylesheet -->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/booking.css' %}"/>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+</head>
+
+<body>
+<div id="booking" class="section_">
+    <div class="section-center">
+        <div class="container">
+            <div class="row">
+                <div class="booking-form">
+                    <div class="booking-bg">
+                        <div class="form-header">
+                            <h2>Book Appointment</h2>
+                            <p>We offer a range of up to date and classy styles that turn heads!</p>
+                        </div>
+                    </div>
+                    <form method="POST" action="{% url 'appointments' %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <span class="form-label">Hairstyle</span>
+                                    {{ form.title }}
+                                    {{ form.title.errors }}
+                                    <span class="select-arrow"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <span class="form-label">Size</span>
+                                    {{ form.size_and_price }}
+                                    {{ form.size_and_price.errors }}
+                                    <span class="select-arrow"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <span class="form-label">Length</span>
+                                    {{ form.length }}
+                                    {{ form.length.errors }}
+                                    <span class="select-arrow"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <span class="form-label">Time</span>
+                                    {{ form.time }}
+                                    {{ form.time.errors }}
+                                </div>
+                            </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <span class="form-label">Date</span>
+                                {{ form.date }}
+                                {{ form.date.errors }}
+                                <span class="select-arrow"></span>
+                            </div>
+                        </div>
+
+                            </div>
+
+                        <div class="form-btn">
+                            <button type="submit" name="book" value="book" class="submit-btn"> Book</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+</body>
+
+</html>

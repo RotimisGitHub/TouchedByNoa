@@ -1,0 +1,44 @@
+{% extends 'touchedbynoa/_base.html' %}
+{% load humanize %}
+{% load static %}
+
+
+<head>
+{% block content %}
+
+    <title>@TouchedByNoa</title>
+
+</head>
+
+
+
+<div class="row">
+    <div class="title-area text-center">
+        <h2>Our Hairstyles</h2>
+        <div class="separator separator-danger">✻</div>
+        <p class="description">We promise you a new look and more importantly, a new attitude.</p>
+    </div>
+</div>
+{% for hairstyle in hairstyles %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="info-icon">
+            <div class="icon text-danger">
+                <img class="img-circle" src="{% static 'img/hairstyle4.jpg' %}"/>
+            </div>
+            <h3>{{ hairstyle.title }}</h3>
+            <p class="description">Price: from £50</p>
+        </div>
+    </div>
+    {% endfor %}
+
+
+
+
+
+
+<!-- Center the "Get Started" section -->
+
+
+
+{% endblock content %}
