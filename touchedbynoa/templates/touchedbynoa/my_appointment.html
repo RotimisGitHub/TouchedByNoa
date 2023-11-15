@@ -33,10 +33,14 @@
                         <div class="info-icon">
                             <div class="icon text-danger">
                                 <img style="height: 250px; width: 250px;" class="img-circle"
-                                     src="{{ appointment.appointment_name.image.url }}"/>
+                                     src="{{ appointment.title.image.url }}"/>
                             </div>
                             <h3>{{ appointment.title }}</h3>
-                            <p class="description">Price: from £50</p>
+                                <ul style="text-align: left; margin-left: 20px; padding: 10px;">
+                                    <li class="description"><strong>{{ appointment.date }}</strong></li>
+                            <li class="description"><strong>{{ appointment.time }}</strong></li>
+                            <li class="description"><strong>{{ appointment.size_and_price }}</strong></li>
+                                    </ul>
                         </div>
                     </div>
                 </div>

@@ -27,15 +27,17 @@ def appointment(request):
 
     if request.method == "POST":
 
-        name = request.POST.get('name')
+        title = request.POST.get('title')
         size_and_price = request.POST.get('size_and_price')
         time = request.POST.get('time')
         date = request.POST.get('date')
+        length = request.POST.get('length')
         form_data = {
-            'name': name,
+            'title': title,
             'size_and_price': size_and_price,
             'time': time,
             'date': date,
+            'length': length,
         }
         form = AppointmentForm(data=form_data)
 
