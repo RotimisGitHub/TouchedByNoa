@@ -35,6 +35,7 @@ class Hairstyles(models.Model):
     def __str__(self):
         return f"{self.title}"
 
+'''
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
@@ -44,7 +45,7 @@ class Hairstyles(models.Model):
             output_size = (250, 250)
             img.thumbnail(output_size)
             img.save(self.image.path)
-
+'''
 
 # Generate hour choices from 9 AM to 9 PM with 1-hour increments
 
