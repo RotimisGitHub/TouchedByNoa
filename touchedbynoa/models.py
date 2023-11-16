@@ -25,27 +25,28 @@ LENGTH_CHOICES = (
 class Hairstyles(models.Model):
     title = models.CharField(max_length=200, null=False)
     time = models.FloatField(null=False)
-    image = models.ImageField(default='hairstyle4.jpg', upload_to='media/profile_pics')
-    description = models.TextField(
-        default='Please ensure your hair is washed thoroughly, blow dried and grease free!'
-                ' - Expression Hair & Wax is provided by me!')
+    image = models.ImageField(default='media/hairstyle_pics/hairstyle4.jpg', upload_to='media/hairstyle_pics')
+    description = models.TextField(null=False)
 
     is_active = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.title}"
 
-'''
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
         img = Image.open(self.image.path)
-
+        img.save(self.image.path)
+        '''
+        
         if img.height > 250 or img.width > 250:
             output_size = (250, 250)
             img.thumbnail(output_size)
             img.save(self.image.path)
-'''
+            '''
+
 
 # Generate hour choices from 9 AM to 9 PM with 1-hour increments
 
