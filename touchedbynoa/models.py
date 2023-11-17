@@ -21,20 +21,24 @@ LENGTH_CHOICES = (
     ("Knees", "knees"),
 )
 
-def default_image_path():
+def default_hairstyle():
     return 'hairstyle4.jpg'
 
+def default_image_path():
+    return 'hairstyles'
+
 class Hairstyles(models.Model):
-    title = models.CharField(max_length=200, null=False)
-    time = models.FloatField(null=False)
-    image = models.ImageField(default=default_image_path, upload_to='hairstyle_pics')
-    description = models.TextField(null=False)
+    title = models.CharField(max_length=200)
+    time = models.FloatField(null=True)
+    image = models.ImageField(default=default_hairstyle, upload_to=default_image_path)
+    description = models.TextField(
+        default='Please ensure your hair is washed thoroughly, blow dried and grease free!'
+                ' - Expression Hair & Wax is provided by me!')
+
     is_active = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.title}"
-
-
 
 
 # Generate hour choices from 9 AM to 9 PM with 1-hour increments
@@ -43,22 +47,22 @@ TIME_CHOICES = [(time(hour, 0), f'{hour:02d}:00') for hour in range(9, 18)]
 
 
 class Appointment(models.Model):
-    title = models.ForeignKey(Hairstyles, on_delete=models.CASCADE, related_name='appointment_name', default=Hairstyles)
+    title = models.ForeignKey(Hairstyles, on_delete=models.CASCADE, related_name='hairstyles', default=Hairstyles)
     date = models.DateField()
     time = models.TimeField(choices=TIME_CHOICES, default=TIME_CHOICES[3][0])
     size_and_price = models.CharField(max_length=100, choices=SIZE_CHOICES, default=SIZE_CHOICES[1][0])
     length = models.CharField(max_length=100, choices=LENGTH_CHOICES, default=LENGTH_CHOICES[0][0])
     is_confirmed = models.BooleanField(default=False)
-    client_name = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+    client_name = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f"{self.client_name}'s {self.title} Appointment on {self.date} at {self.time}"
 
 
 class ContactUs(models.Model):
-    name = models.CharField(max_length=100, null=False)
-    email = models.EmailField(null=False)
-    client_message = models.TextField(null=False)
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    client_message = models.TextField()
     is_confirmed = models.BooleanField(default=False)
 
     def __str__(self):
