@@ -21,21 +21,16 @@ LENGTH_CHOICES = (
     ("Knees", "knees"),
 )
 
-def default_hairstyle():
-    return 'hairstyle4.jpg'
-
-def default_image_path():
-    return 'hairstyles'
 
 class Hairstyles(models.Model):
     title = models.CharField(max_length=200)
     time = models.FloatField(null=True)
-    image = models.ImageField(default=default_hairstyle, upload_to=default_image_path)
+    image = models.ImageField(default='hairstyle4.jpg', upload_to='hairstyles')
     description = models.TextField(
         default='Please ensure your hair is washed thoroughly, blow dried and grease free!'
                 ' - Expression Hair & Wax is provided by me!')
 
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.title}"
