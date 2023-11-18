@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+import os
+from config.settings import AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME, EMAIL_HOST_PASSWORD
 from .models import Hairstyles, Appointment
 from .forms import AppointmentForm, ContactForm
 from django.contrib import messages
@@ -9,6 +11,7 @@ from .email_utils import send_appointment_confirmation_email
 # Create your views here.
 
 def home_page(request):
+
     return render(request, "touchedbynoa/home.html")
 
 

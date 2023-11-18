@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import time
-from PIL import Image
+from .storage_backends import MediaStorage
+
 
 # Create your models here.
 
@@ -25,7 +26,7 @@ LENGTH_CHOICES = (
 class Hairstyles(models.Model):
     title = models.CharField(max_length=200)
     time = models.FloatField(null=True)
-    image = models.ImageField(default='hairstyle4.jpg', upload_to='hairstyles')
+    image = models.ImageField(default='hairstyle4.jpg', upload_to='hairstyle_pictures', storage=MediaStorage)
     description = models.TextField(
         default='Please ensure your hair is washed thoroughly, blow dried and grease free!'
                 ' - Expression Hair & Wax is provided by me!')
