@@ -31,6 +31,7 @@
         padding: 10px;
         clear: both;
         position: relative;
+        margin-top: 23px;
 
     }
     header {
@@ -45,8 +46,10 @@ main {
   }
 </style>
 <body>
+{% block header %}
 <div id="wrapper">
     <header>
+
         <nav class="navbar navbar-default navbar-fixed-top" color-on-scroll="500">
 
             <div class="container">
@@ -65,29 +68,29 @@ main {
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right navbar-uppercase">
                         <li>
-                            <a href="{% url 'home' %}" target="_blank">Home</a>
+                            <a href="{% url 'home' %}">Home</a>
                         </li>
                         {% if user.is_authenticated %}
                         <li>
-                            <a href="{% url 'profile' %}" target="_blank">Profile</a>
+                            <a href="{% url 'profile' %}">Profile</a>
                         </li>
                         {% endif %}
                         <li>
-                            <a href="{% url 'hairstyles' %}" target="_blank">Hairstyles</a>
+                            <a href="{% url 'hairstyles' %}">Hairstyles</a>
                         </li>
                         <li>
-                            <a href="{% url 'my-appointments' %}" target="_blank">My Appointments</a>
+                            <a href="{% url 'my-appointments' %}">My Appointments</a>
                         </li>
                         {% if user.is_authenticated %}
                         <li>
-                            <a href="{% url 'logout' %}" target="_blank">Log Out</a>
+                            <a href="{% url 'logout' %}">Log Out</a>
                         </li>
                         {% else %}
                         <li>
-                            <a href="{% url 'login' %}" target="_blank">Sign In</a>
+                            <a href="{% url 'login' %}">Sign In</a>
                         </li>
                         <li>
-                            <a href="{% url 'register' %}" target="_blank">Register</a>
+                            <a href="{% url 'register' %}">Register</a>
                         </li>
                         {% endif %}
                         <li>
@@ -103,30 +106,34 @@ main {
                 <!-- /.navbar-collapse -->
             </div>
         </nav>
+        {% endblock header %}
     </header>
     <div class="w-full md:w-full p-10 overflow-auto">
-
+        {% block content %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert-{{ message.tags }}">
+            <h3 class="text-center">{{ message }}</h3>
+        </div>
+        {% endfor %}
+        {% endif %}
 
     </div>
     <main>
 
         <div class="section">
-            <div class="container">
-                {% block content %}
-                {% if messages %}
-                {% for message in messages %}
-                <div class="alert-{{ message.tags }}">
-                    <h3 class="text-center">{{ message }}</h3>
-                </div>
-                {% endfor %}
-                {% endif %}
-                {% endblock content %}
+            <div class="container" style="margin: 25px;">
+
             </div>
         </div>
     </main>
 </div>
 
+{% endblock content %}
+
+{% block footer %}
 <footer id="contact" class="footer footer-big footer-color-black" data-color="black">
+
     <div class="section section-small section-get-started text-center">
         <div class="parallax filter">
             <div class="image" style="background-image: url({% static '/img/contact1.jpg' %})"></div>
@@ -148,7 +155,7 @@ main {
         Rotimi Jatto
     </div>
 </footer>
-
+{% endblock footer %}
 
 </body>
 

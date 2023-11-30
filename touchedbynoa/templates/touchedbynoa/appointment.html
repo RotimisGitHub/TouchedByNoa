@@ -29,11 +29,14 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+
+    </style>
 
 </head>
 
 <body>
-<div id="booking" class="section_">
+<div id="booking" class="section_" style="margin-top: 20px;">
     <div class="section-center">
         <div class="container">
             <div class="row">
@@ -47,8 +50,15 @@
                     <form method="POST" action="{% url 'appointments' %}">
                         {% csrf_token %}
                         <div class="row">
+
+
                             <div class="col-md-12">
+
                                 <div class="form-group">
+                                    {% if edit_view %}
+                                    <h3 style="margin: 10px; color: rgba(231, 139, 144, 1); font-weight: bold;">
+                                        {{ edit_appointment_name }}</h3>
+                                    {% endif %}
                                     <span class="form-label">Hairstyle</span>
                                     {{ form.title }}
                                     {{ form.title.errors }}
@@ -71,6 +81,7 @@
                                     <span class="select-arrow"></span>
                                 </div>
                             </div>
+
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <span class="form-label">Time</span>
@@ -79,26 +90,42 @@
                                 </div>
                             </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <span class="form-label">Date</span>
-                                {{ form.date }}
-                                {{ form.date.errors }}
-                                <span class="select-arrow"></span>
-                            </div>
-                        </div>
-
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <span class="form-label">Date</span>
+                                    {{ form.date }}
+                                    {{ form.date.errors }}
+                                    <span class="select-arrow"></span>
+                                </div>
                             </div>
 
-                        <div class="form-btn">
-                            <button type="submit" name="book" value="book" class="submit-btn"> Book</button>
                         </div>
+
+
+                        <div class="text-center" style="margin-bottom: 10px; margin-top: 10px;">
+
+
+                            <script async
+                                    src="https://js.stripe.com/v3/buy-button.js">
+                            </script>
+
+                            <stripe-buy-button
+                                    prefilled_email="{{ request.user.email }}"
+                                    checkout-session-id="{{ checkout_session_id }}"
+                                    buy-button-id="buy_btn_1OI1JZAH7CmnuovAHQIK76og"
+                                    publishable-key="pk_test_51OHp8mAH7CmnuovAEpIInUWUgbrWHQUypXpOkeBuni9PDxriR15ytsdBoJL79G78YGMEW1OCX83UAwJdy1XN4Wn700rCHauTBt"
+                            >
+                            </stripe-buy-button>
+
+                        </div>
+
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 {% endblock content %}
 
 </body>

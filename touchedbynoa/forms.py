@@ -1,6 +1,6 @@
 from django import forms
 from .models import Appointment, ContactUs
-
+from datetime import time
 
 class AppointmentForm(forms.ModelForm):
     class Meta:
@@ -13,12 +13,14 @@ class AppointmentForm(forms.ModelForm):
                     'type': 'date',
                     'class': 'form-control',
 
+
                 }
             ),
             'time': forms.Select(attrs={
                 'class': 'form-control',
 
             }),
+
             'size_and_price': forms.Select(attrs={
                 'class': 'form-control'}),
             'length': forms.Select(attrs={
@@ -26,6 +28,7 @@ class AppointmentForm(forms.ModelForm):
             'title': forms.Select(attrs={'class': 'form-control'}),
 
         }
+
 
 
 class ContactForm(forms.ModelForm):

@@ -35,7 +35,7 @@ urlpatterns = [
         template_name="users/password_reset_done.html"),
          name='password_reset_done'),
     path('password-reset/confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(
-        template_name="users/password_reset_confirm.html"),
+        template_name="users/appointment_confirm_delete.html"),
          name='password_reset_confirm'),
     path('', include("touchedbynoa.urls")),
 ]

@@ -1,0 +1,23 @@
+{
+  "name": "ainhoa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/RotimisGitHub/TouchedByNoa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RotimisGitHub/TouchedByNoa/issues"
+  },
+  "homepage": "https://github.com/RotimisGitHub/TouchedByNoa#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.2"
+  }
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Cancellation Confirmation</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f2f2f2; margin: 0; padding: 0;">
+
+    <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+        <tr>
+            <td style="padding: 40px 30px;">
+                <h1 style="font-size: 24px; margin: 0;">Appointment Cancellation Confirmation</h1>
+                <p style="font-size: 16px; margin-top: 20px;">Dear {{ user.username }},</p>
+                <p style="font-size: 16px;">We regret to inform you that your appointment with TouchedByNoa has been canceled. Here are the details of your canceled appointment:</p>
+                <ul style="font-size: 16px; list-style-type: disc; margin-top: 10px; padding-left: 20px;">
+                    <li><strong>Date:</strong> {{appointment.date.value}}</li>
+                    <li><strong>Time:</strong> {{appointment.time.value}}</li>
+                    <li><strong>Hairstyle:</strong> {{appointment.name.choice.value}}</li>
+                    <li><strong>Size:</strong> {{appointment.size_and_price.choice.value}}</li>
+                    <li><strong>Length:</strong> {{appointment.length.choice.value}}</li>
+                    <li><strong>Stylist:</strong> Noa </li>
+                    <li><strong>Location:</strong> TBA </li>
+                </ul>
+                <p style="font-size: 16px; margin-top: 20px;">We understand that plans change, and we appreciate you notifying us about the cancellation. If you have any questions or would like to reschedule, please don't hesitate to contact us as soon as possible.</p>
+                <p style="font-size: 16px; margin-top: 20px;">Thank you for considering TouchedByNoa, and we hope to serve you in the future.</p>
+                <p style="font-size: 16px; margin-top: 20px;">Best regards,</p>
+                <p style="font-size: 16px; margin-top: 10px;">Noa<br>TouchedByNoa</p>
+            </td>
+        </tr>
+    </table>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
+        <tr>
+            <td style="text-align: center; padding: 20px 0;">
+                <p style="font-size: 14px;">TouchedByNoa &bull; Phone: 07450681299</p>
+                <p style="font-size: 14px;"><a href="mailto: touchedbynoa@gmail.com">touchedbynoa@gmail.com</a> &bull; <a href="">TouchedByNoa.com</a></p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+

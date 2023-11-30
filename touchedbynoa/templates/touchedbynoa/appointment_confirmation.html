@@ -6,13 +6,7 @@
     <title>Appointment Confirmation</title>
 </head>
 <body style="font-family: Arial, sans-serif; background-color: #f2f2f2; margin: 0; padding: 0;">
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
-        <tr>
-            <td align="center" style="padding: 40px 0;">
-                <img src="https://example.com/logo.png" alt="@TouchedByNoa" width="150">
-            </td>
-        </tr>
-    </table>
+
     <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="#ffffff" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
         <tr>
             <td style="padding: 40px 30px;">
@@ -20,11 +14,10 @@
                 <p style="font-size: 16px; margin-top: 20px;">Dear {{ user.username }},</p>
                 <p style="font-size: 16px;">Your appointment with TouchedByNoa has been confirmed. Here are the details:</p>
                 <ul style="font-size: 16px; list-style-type: disc; margin-top: 10px; padding-left: 20px;">
-                    <li><strong>Date:</strong> {{appointment.date.value}}</li>
-                    <li><strong>Time:</strong> {{appointment.time.value}}</li>
-                    <li><strong>Hairstyle:</strong> {{appointment.name.choice.value}}</li>
-                    <li><strong>Size:</strong> {{appointment.size_and_price.choice.value}}</li>
-                    <li><strong>Length:</strong> {{appointment.length.choice.value}}</li>
+                    <li><strong>Date:</strong> {{appointment.datetime}}</li>
+                    <li><strong>Hairstyle:</strong> {{appointment.name.value}}</li>
+                    <li><strong>Size:</strong> {{appointment.size_and_price.value}}</li>
+                    <li><strong>Length:</strong> {{appointment.length.value}}</li>
                     <li><strong>Stylist:</strong> Noa </li>
                     <li><strong>Location:</strong> TBA </li>
 

@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 import django_heroku
-
+import stripe
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,8 +26,9 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
+# DEBUG = False
 
-ALLOWED_HOSTS = ['touchedbynoa-57ca3931f654.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['touchedbynoa.com','touchedbynoa-57ca3931f654.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
     # Apps
     'touchedbynoa',
     'users',
+
     'storages'
 
 ]
@@ -129,13 +131,12 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-# Define the directories where Django should look for static files
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
 # Default primary key field type
@@ -179,12 +180,11 @@ AWS_DEFAULT_ACL = None
 AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
 
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+MEDIAFILES_LOCATION = 'media'
 STATICFILES_LOCATION = 'static'
 
-MEDIAFILES_LOCATION = 'media'
-# DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
-
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#stripe.api_key = os.environ.get('STRIPE_API_KEY')
+stripe.api_key = 'sk_test_51OHp8mAH7CmnuovAw3qeZfmGIzMxX7JLxU31EU1fSdFeQkROA7oU6sG732z38aoen8KE9cHrplTphQRwrTGjHMLJ00ntfp9qQD'
 
 django_heroku.settings(locals())

@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import time
-from .storage_backends import MediaStorage
-
+from config.storage_backends import MediaStorage
 
 # Create your models here.
 
@@ -11,6 +10,13 @@ SIZE_CHOICES = (
     ("Normal | £80", "normal | £80"),
     ("Large | £100", "large | £100"),
     ("Extra-Large | £120", "extra-large | £120"),
+)
+
+PRICES = (
+    ("50", "50"),
+    ("80", "80"),
+    ("100", "100"),
+    ("120", "120"),
 )
 
 LENGTH_CHOICES = (
@@ -25,8 +31,8 @@ LENGTH_CHOICES = (
 
 class Hairstyles(models.Model):
     title = models.CharField(max_length=200)
-    time = models.FloatField(null=True)
-    image = models.ImageField(default='hairstyle4.jpg', upload_to='hairstyle_pictures', storage=MediaStorage)
+    duration = models.FloatField(null=True)
+    image = models.ImageField(default='hairstyle4.jpg', upload_to='media/hairstyle_pictures', storage=MediaStorage)
     description = models.TextField(
         default='Please ensure your hair is washed thoroughly, blow dried and grease free!'
                 ' - Expression Hair & Wax is provided by me!')
@@ -44,15 +50,18 @@ TIME_CHOICES = [(time(hour, 0), f'{hour:02d}:00') for hour in range(9, 18)]
 
 class Appointment(models.Model):
     title = models.ForeignKey(Hairstyles, on_delete=models.CASCADE, related_name='hairstyles', default=Hairstyles)
-    date = models.DateField()
-    time = models.TimeField(choices=TIME_CHOICES, default=TIME_CHOICES[3][0])
+    eventID = models.CharField(max_length=12, null=True)
+    date = models.DateField(null=True)
+    time = models.TimeField(null=True, choices=TIME_CHOICES)
     size_and_price = models.CharField(max_length=100, choices=SIZE_CHOICES, default=SIZE_CHOICES[1][0])
+    price = models.PositiveIntegerField(choices=SIZE_CHOICES, null=True)
     length = models.CharField(max_length=100, choices=LENGTH_CHOICES, default=LENGTH_CHOICES[0][0])
     is_confirmed = models.BooleanField(default=False)
     client_name = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    expired = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.client_name}'s {self.title} Appointment on {self.date} at {self.time}"
+        return f"{self.client_name}'s {self.title} Appointment on {self.date} @ {self.time}"
 
 
 class ContactUs(models.Model):
