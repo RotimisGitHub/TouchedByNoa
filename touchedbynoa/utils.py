@@ -59,7 +59,7 @@ def create_calendar_event(appointment_title,
                           payment_type
                           ):
     # service account details
-    CLIENT_SECRET_FILE = "credentials.json"
+    CLIENT_SECRET_FILE = "sensitive/credentials.json"
 
     credentials = service_account.Credentials.from_service_account_file(
         CLIENT_SECRET_FILE,
@@ -108,7 +108,7 @@ def create_calendar_event(appointment_title,
 
 def delete_calender_event(eventID):
     credentials = service_account.Credentials.from_service_account_file(
-        'credentials.json',
+        'sensitive/credentials.json',
         scopes=['https://www.googleapis.com/auth/calendar',
                 'https://www.googleapis.com/auth/admin.directory.resource.calendar',
                 'https://www.googleapis.com/auth/calendar.events'],

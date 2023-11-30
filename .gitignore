@@ -1,4 +1,2 @@
-.bash_profile
-*.json
-static*/
-db.sqlite3
+# .gitignore
+sensitive/
