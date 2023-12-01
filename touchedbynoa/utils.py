@@ -1,4 +1,6 @@
 import os
+from datetime import datetime, timedelta
+
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 
@@ -126,4 +128,13 @@ def delete_calender_event(eventID):
     service.events().delete(calendarId=calendar_id, eventId=event_id_to_delete, sendUpdates='all',
                             key=API_KEY).execute()
 
+
+
+def convert_time_then_add(date, time, duration):
+    datetime_str = f"{date}T{time}:00"
+    duration_hours = duration
+    start_time = datetime.fromisoformat(datetime_str)
+    added_time = start_time + timedelta(hours=duration_hours)
+    end_time = added_time.isoformat()
+    return start_time.isoformat(), end_time
 

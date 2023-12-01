@@ -49,19 +49,25 @@ TIME_CHOICES = [(time(hour, 0), f'{hour:02d}:00') for hour in range(9, 18)]
 
 
 class Appointment(models.Model):
+    # data needed to be inputted from the user
+
     title = models.ForeignKey(Hairstyles, on_delete=models.CASCADE, related_name='hairstyles', default=Hairstyles)
-    eventID = models.CharField(max_length=12, null=True)
-    date = models.DateField(null=True)
-    time = models.TimeField(null=True, choices=TIME_CHOICES)
+    date = models.DateField(null=True, blank=False)
+    time = models.TimeField(null=True, choices=TIME_CHOICES, blank=False)
     size_and_price = models.CharField(max_length=100, choices=SIZE_CHOICES, default=SIZE_CHOICES[1][0])
     price = models.PositiveIntegerField(choices=SIZE_CHOICES, null=True)
     length = models.CharField(max_length=100, choices=LENGTH_CHOICES, default=LENGTH_CHOICES[0][0])
-    is_confirmed = models.BooleanField(default=False)
-    client_name = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
+    # Confirmation and keys to enable An appointment instances' flexibility on the site and with API's
+
     expired = models.BooleanField(default=False)
+    client_name = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    is_confirmed = models.BooleanField(default=False)
+    calendar_event_id = models.CharField(max_length=500, null=True)
+    stripe_checkout_id = models.CharField(max_length=500, null=True)
 
     def __str__(self):
-        return f"{self.client_name}'s {self.title} Appointment on {self.date} @ {self.time}"
+        return f"{self.client_name}'s {self.title} Appointment on {self.date} @ {self.time}| eventID: {self.calendar_event_id}"
 
 
 class ContactUs(models.Model):

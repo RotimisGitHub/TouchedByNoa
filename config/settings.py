@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 import django_heroku
-import stripe
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,8 +27,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 # DEBUG = False
 
-ALLOWED_HOSTS = ['touchedbynoa.com','touchedbynoa-57ca3931f654.herokuapp.com', 'localhost', '127.0.0.1']
-
+ALLOWED_HOSTS = ['touchedbynoa.com', 'touchedbynoa-57ca3931f654.herokuapp.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -51,7 +49,6 @@ INSTALLED_APPS = [
     # Apps
     'touchedbynoa',
     'users',
-
     'storages'
 
 ]
@@ -135,7 +132,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
@@ -173,7 +169,6 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_REGION_NAME = 'eu-west-2'
 
-
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 
@@ -184,7 +179,13 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 MEDIAFILES_LOCATION = 'media'
 STATICFILES_LOCATION = 'static'
 
-#stripe.api_key = os.environ.get('STRIPE_API_KEY')
-stripe.api_key = 'sk_test_51OHp8mAH7CmnuovAw3qeZfmGIzMxX7JLxU31EU1fSdFeQkROA7oU6sG732z38aoen8KE9cHrplTphQRwrTGjHMLJ00ntfp9qQD'
+STRIPE_SECRET_KEY = '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'
+STRIPE_WEBHOOK_SECRET = 'whsec_7f7326f07c90418edac52a74a3a8caa32ddbf7f7df04b3f568b558d6a0a6a42f'
+# PRODUCT_PRICE = "price_1OHpnrAH7CmnuovAlQPdqwIu"
+PRODUCT_PRICE = "price_1OIZNNAH7CmnuovAqiaw3lE0"
+
+# stripe.api_key = 'sk_test_51OHp8mAH7CmnuovAw3qeZfmGIzMxX7JLxU31EU1fSdFeQkROA7oU6sG732z38aoen8KE9cHrplTphQRwrTGjHMLJ00ntfp9qQD'
+
+REDIRECT_DOMAIN = 'http://127.0.0.1:8000'
 
 django_heroku.settings(locals())

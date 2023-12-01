@@ -1,5 +1,5 @@
 # .gitignore
-sensitive/
+#sensitive/
 Procfile
 db.sqlite3
 static/

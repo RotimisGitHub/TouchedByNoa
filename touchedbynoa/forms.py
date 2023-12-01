@@ -14,8 +14,10 @@ class AppointmentForm(forms.ModelForm):
                     'class': 'form-control',
 
 
+
                 }
             ),
+
             'time': forms.Select(attrs={
                 'class': 'form-control',
 
