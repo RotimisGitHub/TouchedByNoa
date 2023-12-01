@@ -164,25 +164,26 @@ EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.environ.get('EMAIL_ADDRESS')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
+# Amazon
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_REGION_NAME = 'eu-west-2'
-
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
-
 AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
 
+# Media / Static
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 MEDIAFILES_LOCATION = 'media'
 STATICFILES_LOCATION = 'static'
 
-STRIPE_SECRET_KEY = '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'
-STRIPE_WEBHOOK_SECRET = 'whsec_7f7326f07c90418edac52a74a3a8caa32ddbf7f7df04b3f568b558d6a0a6a42f'
-# PRODUCT_PRICE = "price_1OHpnrAH7CmnuovAlQPdqwIu"
-PRODUCT_PRICE = "price_1OIZNNAH7CmnuovAqiaw3lE0"
+# Stripe API Integration
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_API_KEY")
+STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET")
+PRODUCT_PRICE = os.environ.get("PRODUCT_PRICE")
+
 
 # stripe.api_key = 'sk_test_51OHp8mAH7CmnuovAw3qeZfmGIzMxX7JLxU31EU1fSdFeQkROA7oU6sG732z38aoen8KE9cHrplTphQRwrTGjHMLJ00ntfp9qQD'
 
