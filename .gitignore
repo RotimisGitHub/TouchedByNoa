@@ -2,5 +2,5 @@
 sensitive/
 Procfile
 db.sqlite3
-static/
-staticfiles/
+static/*
+staticfiles/*
