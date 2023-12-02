@@ -185,8 +185,6 @@ STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET")
 PRODUCT_PRICE = os.environ.get("PRODUCT_PRICE")
 
 
-# stripe.api_key = 'sk_test_51OHp8mAH7CmnuovAw3qeZfmGIzMxX7JLxU31EU1fSdFeQkROA7oU6sG732z38aoen8KE9cHrplTphQRwrTGjHMLJ00ntfp9qQD'
-
 REDIRECT_DOMAIN = 'http://127.0.0.1:8000'
 
 django_heroku.settings(locals())
