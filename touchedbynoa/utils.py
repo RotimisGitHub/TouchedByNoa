@@ -1,56 +1,12 @@
 import os
 from datetime import datetime, timedelta
-
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+from googleapiclient.discovery import build
+from datetime import datetime, timedelta
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
-
-'''
-# Old Confirmation Method 
-# (Still can be used for reference in the future :) )
-
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
-import config.settings
-
-def send_appointment_confirmation_email(appointment, email):
-    subject = 'Appointment Confirmation'
-    from_email = config.settings.EMAIL_HOST_USER
-    recipient_list = [email]  # Replace with the actual recipient's email
-
-    # Load and render the HTML email template with appointment data
-    context = {
-        'client_name': email,
-        'appointment': appointment
-    }
-    html_message = render_to_string('touchedbynoa/appointment_confirmation.html', context)
-
-    # Create a plain text version of the email (optional)
-    plain_message = strip_tags(html_message)
-
-    # Send the email
-    send_mail(subject, plain_message, from_email, recipient_list, html_message=html_message, fail_silently=False)
-
-
-def send_appointment_deleted_email(appointment, email):
-    subject = 'Appointment Cancelled'
-    from_email = config.settings.EMAIL_HOST_USER
-    recipient_list = [email]  # Replace with the actual recipient's email
-
-    # Load and render the HTML email template with appointment data
-    context = {
-        'client_name': email,
-        'appointment': appointment
-    }
-    html_message = render_to_string('touchedbynoa/appointment_confirmation.html', context)
-
-    # Create a plain text version of the email (optional)
-    plain_message = strip_tags(html_message)
-
-    # Send the email
-    send_mail(subject, plain_message, from_email, recipient_list, html_message=html_message, fail_silently=False)
-
-'''
 
 
 def create_calendar_event(appointment_title,
@@ -92,7 +48,7 @@ def create_calendar_event(appointment_title,
         ],
 
         'transparency': 'opaque',
-        'visibility': 'public',
+        'visibility': 'frontend_images',
         'reminders': {
             'useDefault': False,
             'overrides': [
@@ -138,3 +94,39 @@ def convert_time_then_add(date, time, duration):
     end_time = added_time.isoformat()
     return start_time.isoformat(), end_time
 
+SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
+API_SERVICE_NAME = 'calendar'
+API_VERSION = 'v3'
+
+def check_booked_times(service_account_file='sensitive/credentials.json', calendar_id=os.environ.get("CALENDER_ID"), time_min='2023-12-21T00:00:00Z', time_max='2023-12-31T00:00:00Z'):
+    # Set up the service account credentials
+    SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
+
+    credentials = service_account.Credentials.from_service_account_file(
+        service_account_file, scopes=SCOPES)
+
+    # Build the service using the credentials
+    service = build('calendar', 'v3', credentials=credentials)
+
+    # Call the Google Calendar API to retrieve events
+    events_result = service.events().list(
+        calendarId=calendar_id,
+        timeMin=time_min,
+        timeMax=time_max,
+        singleEvents=True,
+        orderBy='startTime'
+    ).execute()
+
+    # Get the events from the response
+    events = events_result.get('items', [])
+
+    # Process the events
+    booked_times = []
+    if events:
+        for event in events:
+            start = event['start'].get('dateTime', event['start'].get('date'))
+            end = event['end'].get('dateTime', event['end'].get('date'))
+            date, start_time, end_time = start.split("T")[0], start.split("T")[1].replace("Z", ""), end.split("T")[1].replace("Z", "")
+            booked_times.append((date, start_time, end_time, event.get('summary', '')))
+
+    return booked_times

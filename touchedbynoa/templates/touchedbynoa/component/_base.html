@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=0' name='viewport'/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="google-signin-client_id"
+          content="335836943048-mh3a2lkbac6itt5tqkef6seu6vr8ati6.apps.googleusercontent.com">
+    <title>@TouchedByNoa</title>
+    <link rel="stylesheet" href="{% static 'css/booking_form/style.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,600,700,900" rel="stylesheet">
+    <link href="{% static 'css/base/index.css' %}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+</head>
+<body>
+
+{% include 'touchedbynoa/component/Navbar.html' %}
+{% block content %}
+
+{% endblock content %}
+<script src="https://www.gstatic.com/firebasejs/8.0/firebase.js"></script>
+<script>
+    var config = {
+      apiKey: "AIzaSyCwr1CSPIweRD-QIYQL6wCxgQIQT-872Zs",
+      authDomain: "touchedbynoa.firebaseapp.com",
+    };
+    firebase.initializeApp(config);
+</script>
+</body>
+</html>

@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+import stripe
+import corsheaders.middleware
 import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,6 +33,8 @@ ALLOWED_HOSTS = ['touchedbynoa.com', 'touchedbynoa-57ca3931f654.herokuapp.com', 
 
 # Application definition
 
+SITE_ID = 1
+
 INSTALLED_APPS = [
     'jazzmin',
     'django.contrib.admin',
@@ -39,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     # Third-Party add-ons
     'django.contrib.humanize',
@@ -46,12 +51,36 @@ INSTALLED_APPS = [
     "crispy_tailwind",
     'tailwind',
 
+
     # Apps
     'touchedbynoa',
     'users',
-    'storages'
+    'storages',
 
-]
+    # Google Sign-In
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
+    'rest_framework',
+    'corsheaders'
+
+ ]
+
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "SCOPE":
+            [
+                # specify the scopes added to OAuth 2.0 on Google Cloud
+                "profile", "email"
+            ],
+        "AUTH_PARAMETERS": {
+            "access_type": "online",
+        }
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -61,7 +90,16 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES":
+    ['rest_framework.permissions.AllowAny']
+}
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'config.urls'
 
@@ -156,13 +194,11 @@ CRISPY_TEMPLATE_PACK = "tailwind"
 LOGIN_REDIRECT_URL = "home"
 LOGIN_URL = "login"
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-EMAIL_HOST_USER = os.environ.get('EMAIL_ADDRESS')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+# Google Sign-In
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend"
+)
 
 # Amazon
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -183,7 +219,6 @@ STATICFILES_LOCATION = 'static'
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_API_KEY")
 STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET")
 PRODUCT_PRICE = os.environ.get("PRODUCT_PRICE")
-
 
 REDIRECT_DOMAIN = 'http://127.0.0.1:8000'
 

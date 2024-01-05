@@ -1,127 +1,99 @@
-{% extends 'touchedbynoa/_base.html' %}
+{% extends 'touchedbynoa/component/_base.html' %}
 {% load humanize %}
 {% load static %}
 <head>
     <title>@TouchedByNoa</title>
-
-
 </head>
-
 {% block content %}
-<div class="section section-header">
-    <div class="parallax filter" style="background-color: rgba(255, 0, 0, 0.1);">
-        <div class="image"
-             style="background-image: url({% static '/img/Partings_1.JPG' %})">
-        </div>
-        <div class="container">
-            <div class="content">
-                <div class="title-area">
-                    <p>Book Now</p>
-                    <h1 class="title-modern">TouchedByNoa</h1>
-                    <h3>Enjoy top quality experiences everytime you visit!</h3>
-                    <div class="separator line-separator">♦</div>
-                </div>
-                <div class="button-get-started">
-                    <a href="{% url 'appointments' %}" target="_blank" class="btn btn-white btn-fill btn-lg ">
-                        Book Appointment
-                    </a>
-                </div>
-            </div>
 
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="title-area text-center">
-        <h2>Our Services</h2>
-        <div class="separator separator-danger">✻</div>
-        <p class="description">We promise you a new look and more importantly, a new attitude.</p>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <div class="info-icon">
-            <div class="icon text-danger">
-                <i class="pe-7s-users"></i>
-            </div>
-            <h3>Hairstyles</h3>
-            <p class="description">We offer a range of up to date and classy styles that turn heads!</p>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="info-icon">
-            <div class="icon text-danger">
-                <i class="pe-7s-note2"></i>
-            </div>
-            <h3>Book Appointments</h3>
-            <p class="description">We allow you to book appointments straight from our site.
-                Giving you a seamless booking experience.</p>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="info-icon">
-            <div class="icon text-danger">
-                <i class="pe-7s-monitor"></i>
-            </div>
-            <h3>Your Appointments</h3>
-            <p class="description">You can view your Booking Details one our beautifully designed dashboard.</p>
-        </div>
-    </div>
-</div>
-<div class="section section-our-clients-freebie">
-    <div class="container">
-        <div class="title-area">
-            <h5 class="subtitle text-gray">Here are some</h5>
-            <h2>Clients Testimonials</h2>
-            <div class="separator separator-danger">∎</div>
-        </div>
-        <ul class="nav nav-text" role="tablist">
-            <li class="active">
-                <a href="#testimonial1" role="tab" data-toggle="tab">
-                    <div class="image-clients">
-                        <img alt="..." class="img-circle" src="{% static 'img/faces/avatar1.jpg' %}"/>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="#testimonial2" role="tab" data-toggle="tab">
-                    <div class="image-clients">
-                        <img alt="..." class="img-circle" src="{% static '/img/faces/avatar2.jpg' %}"/>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="#testimonial3" role="tab" data-toggle="tab">
-                    <div class="image-clients">
-                        <img alt="..." class="img-circle" src="{% static '/img/faces/avatar3.jpg' %}"/>
-                    </div>
-                </a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="testimonial1">
-                <h3>Mar</h3>
-                <p class="description">
-                    Whenever I go out with my friends after visiting Noa, I always got complimented on my hair. It makes
-                    me feel on top of the world!
+<div>
+    <main class="mainHome">
+        <section class="hero">
+            <section class="heroImgContainer">
+                <img src="{% static 'frontend_images/9.jpg' %}" alt=""/>
+                <div class="overlay"></div>
+            </section>
+            <section class="heroContent">
+                <h1 class="title titleHero">
+                    <span class="titleBookNow">Book Now</span>
+                    <span class="titleBrand">TouchedByNoa</span>
+                </h1>
+                <p class="brandDescription">
+                    Enjoy top-quality experiences every time you visit!
                 </p>
-            </div>
-            <div class="tab-pane" id="testimonial2">
-                <h3>Sofia</h3>
-                <p class="description">
-                    Her customer service is amazing. Great conversations, Great music and energy and to top it off my
-                    braids are fantastic.
-                </p>
-            </div>
-            <div class="tab-pane" id="testimonial3">
-                <h3>Keisha</h3>
-                <p class="description">
-                    My Insta followers must hate me because I practically plastered my face on my Stories simply to show
-                    off my hair. I'm obsessed!
-                </p>
-            </div>
-        </div>
-    </div>
+                <div class="lineSeparator">♦</div>
+                <a href="{% url 'appointments' %}" class="cta">
+                    Book Appointment
+                </a>
+            </section>
+        </section>
+
+        <section class="services">
+
+            <section class="titleServiceContent">
+                <h1 class="title titleServices">Our Services</h1>
+                <div class="lineSeparator lineSeparatorDanger">✻</div>
+            </section>
+            <p class="servicesDescription">
+                We promise you a new look and, more importantly, a new attitude.
+            </p>
+            <section class="ourServices">
+                <section class="card">
+                    <a href="{% url 'appointments' %}">
+                        <section class="cardImg">
+                            <i class="fa-solid fa-user cardIcon"></i>
+                        </section>
+                        <section class="cardContent">
+                            <h1 class="cardHeading">Hairstyles</h1>
+                            <p class="cardDescription">
+                                Offering a range of up-to-date and classy styles that turn heads!
+                            </p>
+                        </section>
+                    </a>
+                </section>
+
+                <section class="card">
+                    <a href="{% url 'appointments' %}">
+                        <section class="cardImg">
+                            <i class="fa-solid fa-money-bill cardIcon"></i>
+                        </section>
+                        <section class="cardContent">
+                            <h1 class="cardHeading">Book Appointments</h1>
+                            <p class="cardDescription">
+                                You're able to book appointments straight from our site. Giving you a seamless, safe and secure booking
+                                experience.
+                            </p>
+                        </section>
+                    </a>
+                </section>
+
+
+                <!--                <section class="card">-->
+                <!--                    <section class="cardImg">-->
+                <!--                        <img src="">-->
+                <!--                    </section>-->
+                <!--&lt;!&ndash;                    <section class="cardContent">&ndash;&gt;-->
+                <!--&lt;!&ndash;                        <h1 class="cardHeading">Your Appointments</h1>&ndash;&gt;-->
+                <!--&lt;!&ndash;                        <p class="cardDescription">&ndash;&gt;-->
+                <!--&lt;!&ndash;                            You can view your Booking Details on our beautifully designed dashboard.&ndash;&gt;-->
+                <!--&lt;!&ndash;                        </p>&ndash;&gt;-->
+                <!--&lt;!&ndash;                    </section>&ndash;&gt;-->
+                <!--                </section>-->
+            </section>
+        </section>
+
+        <!--        <section class="testimonials">-->
+        <!--            <section class="titleServiceContent">-->
+        <!--                <h1 class="title titleTestimonial">-->
+        <!--                    <span class="testimonialSubTitle">Here are some</span>-->
+        <!--                    <span class="testimonialTitleMain">Clients Testimonials</span>-->
+        <!--                </h1>-->
+        <!--                <div class="lineSeparator lineSeparatorDanger">✻</div>-->
+
+        <!--            </section>-->
+        <!--        </section>-->
+
+    </main>
+
 </div>
-<!-- Center the "Get Started" section -->
-{% endblock content %}
+{% endblock %}

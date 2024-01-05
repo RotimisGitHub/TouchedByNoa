@@ -1,79 +1,64 @@
 <!DOCTYPE html>
-{% extends 'touchedbynoa/_base.html' %}
+{% extends 'touchedbynoa/component/_base.html' %}
 {% load static %}
 {% load tailwind_filters %}
 
-<html lang="en">
+
 <head>
-    {% block content %}
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
     <title>Login</title>
-
-    <!-- Google font -->
-    <link href="http://fonts.googleapis.com/css?family=Playfair+Display:900" rel="stylesheet" type="text/css"/>
-    <link href="http://fonts.googleapis.com/css?family=Alice:400,700" rel="stylesheet" type="text/css"/>
-
-    <!-- Bootstrap -->
-    <link type="text/css" rel="stylesheet" href="{% static 'css/bootstrap2.min.css' %}"/>
-
-    <!-- Custom stlylesheet -->
-    <link type="text/css" rel="stylesheet" href="{% static 'css/booking.css' %}"/>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <style>
-        .section_ {
-            height: 50vh;
-        }
-    </style>
 </head>
-<body>
 
-<div id="booking" class="section_">
-    <div class="section-center">
-        <div class="container">
-            <div class="row">
-                <div class="booking-form">
-                    <div class="booking-bg">
-                        <div class="form-header">
-                            <h2>Login</h2>
-                            <p>Please Login to continue.</p>
-                        </div>
-                    </div>
-                    <form method="POST" action="{% url 'login' %}">
-                        {% csrf_token %}
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <span class="form-label">Username</span>
-                                    {{form.username}}
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <span class="form-label">Password</span>
-                                    {{form.password}}
-                                </div>
-                            </div>
-                            <div class="form-btn">
-                                <button class="submit-btn" type="submit">Login</button>
-                            </div>
+{% block content %}
+<main class="grid">
+    <section class="gridContent auth">
+        <h1 class="title-signin">sign in</h1>
 
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock content %}
-</body>
-</html>
+        <form class="form" method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <section class="formControl signin">
+                <label for="username"></label>
+                {{ form.username }}
+                <!-- Placeholder for Django logic to handle input -->
+            </section>
+            <section class="formControl signin">
+                <label for="password"></label>
+                {{ form.password }}
+                <!-- Placeholder for Django logic to handle input -->
+            </section>
+            <section class="sectionSubmit">
+                <a href="{% url 'password-reset' %}">Forgot Password?</a>
+                <button type="submit" class="login btn">
+                    Login
+                </button>
+            </section>
+        </form>
+
+        {% load socialaccount %}
+        <a href="{% provider_login_url 'google' %}?next=/">
+            <div id="my-signin2"></div>
+        </a>
+    </section>
+</main>
+
+<!--<script>-->
+<!--    function onSuccess(googleUser) {-->
+<!--      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());-->
+<!--    }-->
+<!--    function onFailure(error) {-->
+<!--      console.log(error);-->
+<!--    }-->
+<!--    function renderButton() {-->
+<!--      gapi.signin2.render('my-signin2', {-->
+<!--        'scope': 'profile email',-->
+<!--        'width': 240,-->
+<!--        'height': 50,-->
+<!--        'longtitle': true,-->
+<!--        'theme': 'dark',-->
+<!--        'onsuccess': onSuccess,-->
+<!--        'onfailure': onFailure-->
+<!--      });-->
+<!--    }-->
+<!--</script>-->
+
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+{% endblock %}

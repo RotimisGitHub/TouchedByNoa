@@ -1,20 +1,22 @@
-import time
-
+# DJANGO LIBRARIES
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
-from config import settings
-from .models import Hairstyles, Appointment
-from .forms import AppointmentForm, ContactForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .utils import create_calendar_event, delete_calender_event, convert_time_then_add
-from django.views.generic import DetailView, DeleteView
+from django.views.generic import *
 from django.urls import reverse_lazy
-import stripe
-import secrets
 
+# APPLICATION LIBRARIES
+from config import settings
+from .models import *
+from .forms import *
+from .utils import *
+# OTHERS
 
+import time, stripe, secrets
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 def home_page(request):
     return render(request, "touchedbynoa/home.html")
 
@@ -28,9 +30,11 @@ def hairstyles(requests):
     return render(requests, 'touchedbynoa/hairstyles.html', context)
 
 
-@login_required(login_url='login')
+@login_required()
 def appointment(request):
-    stripe.api_key = settings.STRIPE_SECRET_KEY
+
+    if request.POST.get('date'):
+        print(check_booked_times())
 
     if request.method == 'POST':
         title = request.POST.get('title')
@@ -86,7 +90,6 @@ def appointment(request):
 
 @login_required
 def payment_success(request):
-    stripe.api_key = settings.STRIPE_SECRET_KEY
     checkout_session_id = request.GET.get('session_id', None)
     appointment_instance = Appointment.objects.get(stripe_checkout_id=checkout_session_id)
 
@@ -124,7 +127,6 @@ def my_appointment(request):
 
 
 def payment_cancelled(request):
-    stripe.api_key = settings.STRIPE_SECRET_KEY
     checkout_session_id = request.GET.get('session_id', None)
     appointment_payment = Appointment.objects.get(stripe_checkout_id=checkout_session_id)
     appointment_payment.delete()
@@ -135,7 +137,6 @@ def payment_cancelled(request):
 
 @csrf_exempt
 def stripe_webhook(request):
-    stripe.api_key = settings.STRIPE_SECRET_KEY
     time.sleep(10)
     payload = request.body
     signature_header = request.META['HTTP_STRIPE_SIGNATURE']

@@ -1,3 +1,4 @@
+from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib import messages
@@ -8,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 
 def home_page(request):
-    return render(request, "touchedbynoa/app_test.html")
+    return render(request, "touchedbynoa/home.html")
 
 
 def register(request):
@@ -51,3 +52,7 @@ def profile(request):
 
     return render(request, 'users/profile.html', context)
 
+
+def custom_logout(request):
+    logout(request)
+    return redirect('home')

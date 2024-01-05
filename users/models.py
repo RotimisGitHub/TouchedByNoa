@@ -14,5 +14,5 @@ class Profile(models.Model):
 
 
     def __str__(self):
-        return f"{self.user.username}'s Profile"
+        return f"{self.user.email}'s Profile"
 
