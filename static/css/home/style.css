@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+.individual-body-home { /* Adjust this value based on your header's width */
+  width: 80%; /* Adjust this value based on your layout */
+  box-sizing: border-box;
+
+}
+
+.container-booking {
+	background-color: rgb(255, 255, 255, 0.25);
+	width: 100%;
+    padding: 20px;
+	box-shadow: 10px 15px 20px rgba(0, 0, 0, .2);
+	border-radius: 50px;
+	margin-left: 20%;
+	display: flex;
+	justify-content: center;
+	}

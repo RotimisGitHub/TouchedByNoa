@@ -1,6 +1,3 @@
 # .gitignore
-sensitive/
-Procfile
-db.sqlite3
-static/*
-staticfiles/*
+#sensitive/
+

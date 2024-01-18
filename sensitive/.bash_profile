@@ -1,0 +1,14 @@
+export PRODUCT_PRICE="price_1OHpnrAH7CmnuovAlQPdqwIu"
+export STRIPE_WEBHOOK_SECRET="whsec_7f7326f07c90418edac52a74a3a8caa32ddbf7f7df04b3f568b558d6a0a6a42f"
+export STRIPE_API_KEY="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"
+export TOUCHEDBYNOA_ADDRESS="Clapton Library, Northwold Rd, London E5 8RA, UK"
+export SECRET_KEY="8c5030f85a34bb83a9ab8b1c3107634341aa057aaf91832a"
+export BUSINESS_EMAIL='rotimi@purplepastures.co.uk'
+export CALENDER_ID='c_161a11109444d481ef9fe19d1691e64e459e151b58596b98a6460ab48cb43b2d@group.calendar.google.com'
+export CALENDER_API_KEY='AIzaSyDOnd-gy7yJJkKMCSv9qrZJn3viYIVnK7U'
+export AWS_ACCESS_KEY_ID="AKIAQUP6W33UGF2KHAXB"
+export AWS_SECRET_ACCESS_KEY="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"
+export AWS_STORAGE_BUCKET_NAME="touchedbynoa"
+export EMAIL_ADDRESS="homebodyplug@gmail.com"
+export EMAIL_PASSWORD="jett bebt bknv cezk"
+export DEBUG_VALUE='True'
