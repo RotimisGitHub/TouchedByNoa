@@ -1,0 +1,103 @@
+{% extends 'touchedbynoa/component/_base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/pricing/nicepage.css' %}" media="screen">
+<link rel="stylesheet" href="{% static 'css/pricing/Contact.css' %}" media="screen">
+<script class="u-script" type="text/javascript" src="{% static 'js/pricing/jquery.js' %}" defer=""></script>
+<script class="u-script" type="text/javascript" src="{% static 'js/pricing/nicepage.js' %}" defer=""></script>
+<meta name="keywords" content="​A styles price will generally follow this structure, unless specified otherwise.">
+<meta name="description" content="">
+<meta name="generator" content="Nicepage 6.3.1, nicepage.com">
+{% endblock %}
+
+{% block content %}
+
+
+<section class="u-align-left u-clearfix u-section-1" id="carousel_9445">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="data-layout-selected u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
+            <div class="u-layout">
+                <div class="u-layout-row">
+                    <div class="u-container-style u-layout-cell u-size-30 u-layout-cell-1">
+                        <div class="u-container-layout u-valign-middle u-container-layout-1">
+                            <h6 class="u-custom-font u-font-montserrat u-text u-text-default u-text-1"> Pricing</h6>
+                            <h2 class="u-custom-font u-font-montserrat u-text u-text-2"> A style's price will generally
+                                follow this structure, unless specified otherwise.</h2>
+                        </div>
+                    </div>
+                    <div class="u-align-center u-container-style u-layout-cell u-size-30 u-layout-cell-2">
+                        <div class="u-container-layout u-container-layout-2">
+                            <img class="u-image u-image-contain u-image-default u-image-1"
+                                 src="{% static 'frontend_images/Ainhoa_profile.jpg' %}" alt="" data-image-width="1000"
+                                 data-image-height="990" style="border-radius: 5em;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="u-list u-list-1">
+            <div class="u-repeater u-repeater-1">
+                <div class="u-align-center-md u-align-center-sm u-align-center-xs u-container-style u-grey-5 u-list-item u-radius-30 u-repeater-item u-shape-round u-list-item-1">
+                    <div class="u-container-layout u-similar-container u-valign-top u-container-layout-3">
+                        {% for style in knotless %}
+                        <div class="pricing-plan-img" style="height: 100px; width: 100px; margin-left: 5em;">
+                            <img src="{{ style.image.url }}" style="border-radius: 50%; overflow: hidden;" width="100"
+                                 height="100">
+                        </div>
+                        {% endfor %}
+                        <h4 class="u-custom-font u-font-montserrat u-text u-text-default u-text-3">Knotless </h4>
+                        <h6 class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-4">
+                            Pricing is based on the size of each individual braid.</h6>
+                        <p class="u-text u-text-palette-1-dark-2 u-text-5">XL: £45&nbsp;<br>Large: £60<br>S/Medium
+                            £80<br>Medium £100<br>Large £150
+                        </p>
+                        <a href="{% url 'hairstyles' %}"
+                           class="u-active-palette-1-light-3 u-border-none u-btn u-btn-round u-button-style u-custom-color-1 u-custom-item u-hover-palette-2-base u-radius-50 u-text-body-alt-color u-btn-1">Choose
+                            style</a>
+                    </div>
+                </div>
+                <div class="u-align-center-md u-align-center-sm u-align-center-xs u-container-style u-grey-5 u-list-item u-radius-30 u-repeater-item u-shape-round u-list-item-2">
+                    <div class="u-container-layout u-similar-container u-valign-top u-container-layout-4">
+                        {% for style in cornrows %}
+                        <div class="pricing-plan-img" style="height: 100px; width: 100px; margin-left: 5em;">
+                            <img src="{{ style.image.url }}" style="border-radius: 50%; overflow: hidden;" width="100"
+                                 height="100">
+                        </div>
+                        {% endfor %}
+                        <h4 class="u-custom-font u-font-montserrat u-text u-text-default u-text-6">Cornrows </h4>
+                        <h6 class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-7">
+                            Pricing is based on the size of each individual braid.</h6>
+                        <p class="u-text u-text-palette-1-dark-2 u-text-8"> XL: £45&nbsp;<br>Large: £60<br>S/Medium
+                            £80<br>Medium £100<br>Large £150
+                        </p>
+                        <a href="{% url 'hairstyles' %}"
+                           class="u-active-palette-1-light-3 u-border-none u-btn u-btn-round u-button-style u-custom-color-1 u-custom-item u-hover-palette-2-base u-radius-50 u-text-body-alt-color u-text-hover-palette-2-base u-btn-2">
+                            Choose style</a>
+                    </div>
+                </div>
+                <div class="u-align-center-md u-align-center-sm u-align-center-xs u-container-style u-grey-5 u-list-item u-radius-30 u-repeater-item u-shape-round u-list-item-3">
+                    <div class="u-container-layout u-similar-container u-valign-top u-container-layout-5">
+                        {% for style in ponytails %}
+                        <div class="pricing-plan-img" style="height: 100px; width: 100px; margin-left: 5em;">
+                            <img src="{{ style.image.url }}" style="border-radius: 50%; overflow: hidden;" width="100"
+                                 height="100">
+                        </div>
+                        {% endfor %}
+                        <h4 class="u-custom-font u-font-montserrat u-text u-text-default u-text-9">Ponytails </h4>
+                        <h6 class="u-align-center u-custom-font u-font-montserrat u-text u-text-default u-text-10">
+                            Pricing of Ponytails are £30 unless specified otherwise</h6>
+
+                        <a href="{% url 'hairstyles' %}"
+                           class="u-active-palette-1-light-3 u-border-none u-btn u-btn-round u-button-style u-custom-color-1 u-custom-item u-hover-palette-2-base u-radius-50 u-text-body-alt-color u-text-hover-palette-2-base u-btn-3">
+                            Choose style</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

@@ -56,31 +56,11 @@ INSTALLED_APPS = [
     'touchedbynoa',
     'users',
     'storages',
-
-    # Google Sign-In
-
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
-
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
 
  ]
 
-SOCIALACCOUNT_PROVIDERS = {
-    "google": {
-        "SCOPE":
-            [
-                # specify the scopes added to OAuth 2.0 on Google Cloud
-                "profile", "email"
-            ],
-        "AUTH_PARAMETERS": {
-            "access_type": "online",
-        }
-    }
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -91,8 +71,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'allauth.account.middleware.AccountMiddleware',
-    'corsheaders.middleware.CorsMiddleware'
+    'corsheaders.middleware.CorsMiddleware',
 ]
+X_FRAME_OPTIONS = 'ALLOWALL'
+
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES":
@@ -102,6 +84,7 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'config.urls'
+
 
 TEMPLATES = [
     {
@@ -194,11 +177,6 @@ CRISPY_TEMPLATE_PACK = "tailwind"
 LOGIN_REDIRECT_URL = "home"
 LOGIN_URL = "login"
 
-# Google Sign-In
-AUTHENTICATION_BACKENDS = (
-    "django.contrib.auth.backends.ModelBackend",
-    "allauth.account.auth_backends.AuthenticationBackend"
-)
 
 # Amazon
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -216,9 +194,11 @@ MEDIAFILES_LOCATION = 'media'
 STATICFILES_LOCATION = 'static'
 
 # Stripe API Integration
+
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_API_KEY")
 STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET")
 PRODUCT_PRICE = os.environ.get("PRODUCT_PRICE")
+
 
 REDIRECT_DOMAIN = 'http://127.0.0.1:8000'
 

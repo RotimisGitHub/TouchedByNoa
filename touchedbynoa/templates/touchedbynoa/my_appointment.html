@@ -1,65 +1,34 @@
-{% extends 'touchedbynoa/_base.html' %}
+{% extends 'touchedbynoa/component/_base.html' %}
 {% load humanize %}
 {% load static %}
 
 
-<head>
-    {% block content %}
+{% block content %}
 
-    <title>@TouchedByNoa</title>
-
-</head>
-<body>
-
-        <div class="row" style="margin-top: 50px;">
-            <div class="title-area text-center">
-                <h2>Your Appointments</h2>
-                <div class="separator separator-danger">✻</div>
-                <p class="description">Here you can view your upcoming appointments.</p>
-                <hr>
-
-
-            </div>
-        </div>
-        <div class="row">
+<main class="grid">
+    <section class="gridContent">
+        <section class="titleServiceContent">
+            <header>
+                <h1 class="title titleServices">Our Hairstyles</h1>
+                <div class="lineSeparator lineSeparatorDanger">✻</div>
+            </header>
+            <p>We promise you a new look and more importantly, a new attitude.</p>
+        </section>
+        <section class="hairstyles">
             {% for appointment in appointments %}
+            <section class="hairstylesCard" id="hairstyle">
 
-            <div class="col-md-4">
-                <div class="card-container" style="max-height: 100%; max-width: 100%;">
-                    <div class="card">
+                <img src="{{ appointment.image.url }}" alt="{{ appointment.title }}"/>
 
-                        <div class="front">
-                            <div class="cover">
-                                <div class="info-icon">
-                                    <div class="icon text-danger">
-                                        <img style="height: 250px; width: 250px; margin-top: 20px;" class="img-circle"
-                                             src="{{ appointment.title.image.url }}"/>
-                                    </div>
-                                    <h3>{{ appointment.title }}</h3>
-                                    <ul style="text-align: left; margin-left: 20px; padding: 10px;">
+                <section>
+                    <p class="hairstyleTitle">{{ hairstyle.title }}</p>
 
-                                        <li class="description"><strong>Date: {{ appointment.date }}</strong></li>
-                                        <li class="description"><strong>Time: {{ appointment.time }}</strong></li>
-                                        <li class="description"><strong>Size/Price: {{ appointment.size_and_price }}</strong></li>
-                                    </ul>
-
-                                    <div class="form-btn">
-                                        <a href="{% url 'appointment-detail' appointment.pk %}"
-                                           class="btn btn-danger btn-fill"
-                                           style="margin-bottom: 20px;"><strong>More...</strong></a>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+                </section>
+            </section>
             {% endfor %}
-
-
-        </div>
+        </section>
+    </section>
+</main>
 
 <script src="{% static 'js/jquery-1.10.2.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/bootstrap.min.js' %}" type="text/javascript"></script>
@@ -85,10 +54,20 @@
             $card.addClass('hover');
         }
     }
+
+                    // Get the video element
+    var video = document.getElementById("autoplay-video");
+
+                    // Play the video when the document is ready
+    document.addEventListener("DOMContentLoaded", function() {
+         video.play();
+    });
+
 </script>
 
-</body>
-<!-- Center the "Get Started" section -->
+{% endblock %}
 
 
-{% endblock content %}
+
+
+

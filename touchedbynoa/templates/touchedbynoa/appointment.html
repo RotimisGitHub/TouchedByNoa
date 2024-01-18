@@ -7,22 +7,17 @@
 
 
     <div class="container">
-        <div class="container-time">
-            <h2 class="heading" style="color:black;">Time Open</h2>
-            <h3 class="heading-days">Monday-Sunday</h3>
-            <br>
-            <h2 style="color:black;">9am - 9pm</h2>
+        <div class="container-time" id="imageContainer">
+        <img src="{{ hairstyle.image.url }}" height="441" width="440">
         </div>
 
         <div class="container-form">
-            <form method="POST" enctype="multipart/form-data">
+            <form id="appointmentForm" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <h2 class="heading heading-yellow">Book Appointment</h2>
 
                 <div class="form-field">
-                    <p>Hairstyle</p>
-                    {{ form.title }}
-                    {{ form.title.errors }}
+                    <h2 style="text-align: center;">{{ hairstyle.title }}</h2>
                 </div>
                 <div class="form-field">
                     <p>Size</p>
@@ -34,24 +29,30 @@
                     {{ form.length }}
                     {{ form.length.errors }}
                 </div>
+
+
                 <div class="form-field">
                     <p>Date</p>
                     {{ form.date }}
                     {{ form.date.errors }}
                 </div>
+
+
                 <div class="form-field">
                     <p>Time</p>
                     {{ form.time }}
                     {{ form.time.errors }}
                 </div>
 
+
                 <button type="submit" name="book" value="book" class="btn">Book
                 </button>
-
             </form>
+
         </div>
     </div>
 </div>
+
 
 
 {% endblock content %}

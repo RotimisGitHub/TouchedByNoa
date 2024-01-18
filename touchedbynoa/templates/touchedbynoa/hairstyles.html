@@ -1,40 +1,75 @@
 {% extends 'touchedbynoa/component/_base.html' %}
 {% load humanize %}
 {% load static %}
-<head>
-    <title>@TouchedByNoa</title>
-
-</head>
-<body>
 {% block content %}
-  <main class="grid">
-    <section class="gridContent">
-      <section class="titleServiceContent">
-        <header>
-          <h1 class="title titleServices">Our Hairstyles</h1>
-          <div class="lineSeparator lineSeparatorDanger">✻</div>
-        </header>
-        <p>We promise you a new look and more importantly, a new attitude.</p>
-      </section>
-      <section class="hairstyles">
-        {% for hairstyle in hairstyles %}
-          <section class="hairstylesCard">
-            <section>
-              <img src="{{ hairstyle.image.url }}" alt="{{ hairstyle.title }}" />
-            </section>
-            <section>
-              <p class="hairstyleTitle">{{ hairstyle.title }} | From £50</p>
-              <a href="{% url 'appointments' %}" class="cta">
-                Book Appointment
-              </a>
-            </section>
-          </section>
-        {% endfor %}
-      </section>
-    </section>
-  </main>
-{% endblock %}
 
+<main class="grid">
+    <section class="gridContent">
+        <section class="titleServiceContent">
+            <header>
+                <h1 class="title titleServices">Our Hairstyles</h1>
+                <div class="lineSeparator lineSeparatorDanger">✻</div>
+            </header>
+            <p>We promise you a new look and more importantly, a new attitude.</p>
+        </section>
+
+        <section class="titleServiceContent_styles">
+                <h1 class="title titleServices">Ponytail Hairstyles</h1>
+                <div class="lineSeparator lineSeparatorDanger">✻</div>
+        </section>
+
+        <section class="hairstyle-group">
+            {% for ponytail in ponytails %}
+            <section class="hairstylesCard">
+                <img src="{{ ponytail.image.url }}" alt="{{ ponytail.title }}">
+                <h2 style="margin: 0.5em;">{{ ponytail.title }}</h2>
+                <p style="margin: 0.75em;">{{ ponytail.description }}</p>
+
+                <a href="{% url 'appointments' pk=ponytail.id %}">
+                    <button type="button" style="margin-left: 5em;">Book</button>
+                </a>
+
+            </section>
+            {% endfor %}
+        </section>
+
+        <section class="titleServiceContent_styles">
+                <h1 class="title titleServices">Cornrow Hairstyles</h1>
+                <div class="lineSeparator lineSeparatorDanger">✻</div>
+        </section>
+
+        <section class="hairstyle-group">
+            {% for cornrow in cornrows %}
+            <section class="hairstylesCard">
+                <img src="{{ cornrow.image.url }}" alt="{{ cornrow.title }}">
+                <h2>{{ cornrow.title }}</h2>
+                <a href="{% url 'appointments' pk=cornrow.id %}">
+                    <button type="button">Book</button>
+                </a>
+            </section>
+            {% endfor %}
+        </section>
+
+        <section class="titleServiceContent_styles">
+
+                <h1 class="title titleServices">Knotless Braids Styles</h1>
+                <div class="lineSeparator lineSeparatorDanger">✻</div>
+
+        </section>
+
+        <section class="hairstyle-group">
+            {% for knotless_iter in knotless %}
+            <section class="hairstylesCard">
+                <img src="{{ knotless_iter.image.url }}" alt="{{ knotless_iter.title }}">
+                <h2>{{ knotless_iter.title }}</h2>
+                <a href="{% url 'appointments' pk=knotless_iter.id %}">
+                    <button type="button">Book</button>
+                </a>
+            </section>
+            {% endfor %}
+        </section>
+    </section>
+</main>
 
 <script src="{% static 'js/jquery-1.10.2.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/bootstrap.min.js' %}" type="text/javascript"></script>
@@ -60,9 +95,20 @@
             $card.addClass('hover');
         }
     }
+
+                    // Get the video element
+    var video = document.getElementById("autoplay-video");
+
+                    // Play the video when the document is ready
+    document.addEventListener("DOMContentLoaded", function() {
+         video.play();
+    });
+
 </script>
 
-</body>
-<!-- Center the "Get Started" section -->
+{% endblock %}
+
+
+
 
 

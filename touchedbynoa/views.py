@@ -1,11 +1,15 @@
 # DJANGO LIBRARIES
-from django.http import HttpResponse
+import json
+
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.generic import *
 from django.urls import reverse_lazy
+
+from rest_framework import status
 
 # APPLICATION LIBRARIES
 from config import settings
@@ -15,29 +19,100 @@ from .utils import *
 # OTHERS
 
 import time, stripe, secrets
+from datetime import time
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+
+
 def home_page(request):
     return render(request, "touchedbynoa/home.html")
 
 
-def hairstyles(requests):
-    hairstyles = Hairstyles.objects.filter(is_active=True)
+def hairstyles(request):
+    ponytails = Hairstyles.objects.filter(is_active=True, style="Ponytails")
+    cornrows = Hairstyles.objects.filter(is_active=True, style="Cornrows")
+    knotless = Hairstyles.objects.filter(is_active=True, style="Knotless")
 
     context = {
-        "hairstyles": hairstyles
+        "ponytails": ponytails,
+        "cornrows": cornrows,
+        "knotless": knotless,
     }
-    return render(requests, 'touchedbynoa/hairstyles.html', context)
+
+    response = render(request, 'touchedbynoa/hairstyles.html', context)
+    response['X-Frame-Options'] = 'SAMEORIGIN'
+
+    return response
+
+def price_guide(request):
+    ponytails = Hairstyles.objects.filter(title="Xpresion")
+    cornrows = Hairstyles.objects.filter(title="Alicia Keys")
+    knotless = Hairstyles.objects.filter(title="Bohemian")
+
+    context = {
+        "ponytails": ponytails,
+        "cornrows": cornrows,
+        "knotless": knotless,
+    }
+
+    return render(request, 'touchedbynoa/price_guide.html', context)
+
+def AvailableTimesAPIView(request):
+    try:
+        selected_date = json.loads(request.body)
+        date = selected_date.get("selected_date")
+    except json.JSONDecodeError:
+
+        return JsonResponse({'error': 'Invalid JSON'}, status=status.HTTP_400_BAD_REQUEST)
+
+    if date is None:
+        return JsonResponse({'error': 'Invalid date'}, status=status.HTTP_400_BAD_REQUEST)
+
+    booked_appointments = check_booked_times(datetime.strptime(date, "%Y-%m-%d"))
+    available_times = []
+
+    # Iterate over the booked appointments
+    for appointment in booked_appointments:
+        # Check if the appointment date matches the selected date
+        if appointment["date"] == date:
+            # Extract the start and end times
+            start_time = appointment["start_time"]
+            end_time = appointment["end_time"]
+
+            available_times.append(start_time)
+            available_times.append(end_time)
+
+    if len(available_times) > 0:
+
+        available_times = [
+            f'{hour:02d}:00' for hour in range(9, 21) if hour < available_times[0] or available_times[1] >= hour
+        ]
+    else:
+        available_times = [f'{hour:02d}:00' for hour in range(9, 21)]
+
+    # Return a valid JSON response
+    return JsonResponse({'available_times': available_times}, status=status.HTTP_200_OK)
 
 
-@login_required()
-def appointment(request):
+class AppointmentView(View):
+    template_name = "touchedbynoa/appointment.html"
 
-    if request.POST.get('date'):
-        print(check_booked_times())
+    def get(self, request, pk):
+        form = AppointmentForm()
+        print(form.errors)
 
-    if request.method == 'POST':
-        title = request.POST.get('title')
+        hairstyle = Hairstyles.objects.get(id=pk)
+
+        context = {
+            "form": form,
+            "hairstyle": hairstyle
+        }
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, pk):
+        hairstyle = Hairstyles.objects.get(id=pk)
+
         size_and_price = request.POST.get('size_and_price')
         date_str = request.POST.get('date')
         time_str = request.POST.get('time')
@@ -55,12 +130,12 @@ def appointment(request):
             mode='payment',
             customer_creation='always',
             success_url=settings.REDIRECT_DOMAIN + '/payment_successful?session_id={CHECKOUT_SESSION_ID}',
-            cancel_url=settings.REDIRECT_DOMAIN + '/appointments',
+            cancel_url=settings.REDIRECT_DOMAIN + f'/appointments/{pk}/',  # Adjust cancel URL
         )
         checkout_session_id = checkout_session['id']
 
         form_data = {
-            'title': title,
+            'title': hairstyle.title,
             'size_and_price': size_and_price,
             'date': date_str,
             'time': time_str,
@@ -68,40 +143,39 @@ def appointment(request):
             'eventID': calendar_event_id,
         }
         form = AppointmentForm(data=form_data)
+
         if form.is_valid() and request.POST.get('book'):
             form.instance.stripe_checkout_id = checkout_session_id
             form.instance.client_name = request.user
             form.instance.calendar_event_id = calendar_event_id
+            form.instance.title = hairstyle # since its a foreign key field, it will inherit the title of the chose hairstyle
             form.save()
 
             return redirect(checkout_session.url, code=303)
 
-    else:
+        context = {
+            "form": form,
+            "hairstyle": Hairstyles.objects.get(id=pk),
+        }
 
-        form = AppointmentForm()
-        print(form.errors)
-
-    context = {
-        "form": form,
-
-    }
-    return render(request, "touchedbynoa/appointment.html", context)
+        return render(request, self.template_name, context)
 
 
 @login_required
 def payment_success(request):
+
     checkout_session_id = request.GET.get('session_id', None)
     appointment_instance = Appointment.objects.get(stripe_checkout_id=checkout_session_id)
 
-    start_and_end = convert_time_then_add(date=appointment_instance.date, time=appointment_instance.time,
+    appointment_times = convert_time_then_add(date=appointment_instance.date, time=appointment_instance.time,
                                           duration=appointment_instance.title.duration)
-    start_time = start_and_end[0]
-    end_time = start_and_end[1]
+
+    start_time, end_time = appointment_times[0], appointment_times[1]
 
     create_calendar_event(
         appointment_title=appointment_instance.title,
         appointment_datetime=start_time,
-        appointment_time_duration=end_time,
+        appointment_end_time=end_time,
         client_user_email=request.user.email,
         event_id=appointment_instance.calendar_event_id,
         payment_type="DEPOSIT")
@@ -196,42 +270,3 @@ class CancelAppointment(DeleteView):
     def get_failure_url(self):
         #  URL to redirect to on deletion failure
         return reverse_lazy('my-appointments')
-
-
-def contact(request):
-    if request.method == "POST":
-        if request.user.is_authenticated:
-            name = request.user.username
-            email = request.user.email
-        else:
-            name = request.POST.get('name')
-            email = request.POST.get('email')
-
-        client_messages = request.POST.get('client_message')
-
-        form_data = {
-            'name': name,
-            'email': email,
-            'client_message': client_messages,
-
-        }
-        form = ContactForm(data=form_data)
-
-        if form.is_valid():
-            form.instance.is_confirmed = True
-            form.instance.client_name = request.user
-            form.save()
-            messages.success(request=request,
-                             message=f"Thank you! Your message has been sent and we are trying our best to get back to "
-                                     f"you when we can!")
-            return redirect("contact-us")
-    else:
-
-        form = ContactForm()
-        print(form.errors)
-
-    context = {
-        "form": form,
-
-    }
-    return render(request, "touchedbynoa/contact_us.html", context)

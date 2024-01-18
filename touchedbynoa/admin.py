@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import Hairstyles, Appointment, ContactUs
+from .models import Hairstyles, Appointment
 
 # Register your models here.
 
 admin.site.register(Appointment)
-admin.site.register(ContactUs)
+
 admin.site.register(Hairstyles)
 
 

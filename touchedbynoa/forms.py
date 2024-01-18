@@ -1,8 +1,7 @@
 from django import forms
 from django.utils import timezone
 
-from .models import Appointment, ContactUs
-from datetime import time
+from .models import Appointment
 
 
 class DatePickerWidget(forms.DateInput):
@@ -14,26 +13,29 @@ class DatePickerWidget(forms.DateInput):
 class AppointmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
-        fields = ['title', 'size_and_price', 'length', 'date', 'time']
-
+        fields = ['size_and_price', 'length', 'date', 'time']
         widgets = {
             'date': DatePickerWidget(
                 attrs={
                     'type': 'date',
                     'class': 'form-field-text',
+                    'id': 'id_date',
                 }
             ),
 
             'time': forms.Select(attrs={
                 'class': 'form-field-text',
-
-            }),
+                'id': 'id_time',
+            }
+            ),
 
             'size_and_price': forms.Select(attrs={
-                'class': 'form-field-text'}),
+                'class': 'form-field-text',
+            }),
+
             'length': forms.Select(attrs={
-                'class': 'form-field-text'}),
-            'title': forms.Select(attrs={'class': 'form-field-text'}),
+                'class': 'form-field-text',
+            }),
 
         }
 
@@ -46,13 +48,4 @@ class AppointmentForm(forms.ModelForm):
 
 
 
-class ContactForm(forms.ModelForm):
-    class Meta:
-        model = ContactUs
-        fields = ['name', 'email', 'client_message']
 
-        widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-field-text'}),
-            'client_message': forms.Textarea(attrs={'class': 'form-field-text'}),
-            'email': forms.EmailInput(attrs={'class': 'form-field-text', 'type': 'email'}),
-        }

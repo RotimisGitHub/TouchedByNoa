@@ -1,5 +1,5 @@
 {% block content %}
-<style>
+<style nonce="{{ request.nonce }}">
     body {
       margin: 0;
       font-family: 'Arial', sans-serif;
@@ -61,8 +61,6 @@
       }
     }
 </style>
-<div id="root"></div> {# This is where your React app will be mounted #}
-
 
 <div class="nav">
     <div class="navContent">
@@ -70,42 +68,41 @@
             @TouchedByNoa
         </a>
 
-        <button onclick="handleClick()" class="hamburger-btn">
-            <div class="hamburger-icon"></div>
-            <div class="hamburger-icon"></div>
-            <div class="hamburger-icon"></div>
-        </button>
-
         <ul id="navList" class="navList">
             <li class="navItem">
-                <a href="/" class="navLink" onclick="handleClick()">
+                <a href="/" class="navLink">
                     Home
                 </a>
             </li>
             <li class="navItem">
-                <a href="/hairstyles" class="navLink" onclick="handleClick()">
-                    Hairstyles
+                <a href="https://www.instagram.com/touchedbynoa/" class="navLink">
+                    Instagram
                 </a>
             </li>
             <li class="navItem">
-                <a href="https://www.instagram.com/touchedbynoa/" class="navLink" onclick="handleClick()">
-                    Instagram
+                <a href="/prices" class="navLink">
+                    Prices
                 </a>
             </li>
             {% if user.is_authenticated %}
             <li class="navItem">
-                <a href="{% url 'logout' %}" class="navLink" onclick="handleClick()">
+                <a href="{% url 'logout' %}" class="navLink">
                     Sign Out
+                </a>
+            </li>
+            <li class="navItem">
+                <a href="/my-appointments" class="navLink">
+                    My Appointments
                 </a>
             </li>
             {% else %}
             <li class="navItem">
-                <a href="{% url 'login' %}" class="navLink" onclick="handleClick()">
+                <a href="{% url 'login' %}" class="navLink">
                     Sign In
                 </a>
             </li>
             <li class="navItem">
-                <a href="{% url 'register' %}" class="navLink" onclick="handleClick()">
+                <a href="{% url 'register' %}" class="navLink">
                     Sign Up
                 </a>
             </li>
@@ -114,19 +111,12 @@
             <!-- ... (repeat for other menu items) ... -->
 
             <li class="navItem">
-                <a href="/appointments" class="navLink cta" onclick="handleClick()">
-                    Book Appointment
+                <a href="/hairstyles" class="navLink cta">
+                    Hairstyles
                 </a>
             </li>
         </ul>
     </div>
 </div>
 
-<script>
-    function handleClick() {
-      // Insert your React code here to handle the click event
-      // You may need to adjust this function based on your React implementation
-      // For example, if using ReactDOM.render(), make sure to update the #root element
-    }
-</script>
 {% endblock %}
