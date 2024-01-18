@@ -3,6 +3,7 @@ import json
 
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
+from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -94,6 +95,7 @@ def AvailableTimesAPIView(request):
     return JsonResponse({'available_times': available_times}, status=status.HTTP_200_OK)
 
 
+@method_decorator(login_required, name='dispatch')
 class AppointmentView(View):
     template_name = "touchedbynoa/appointment.html"
 

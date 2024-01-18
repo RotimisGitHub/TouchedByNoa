@@ -11,6 +11,14 @@ class UserRegistrationForm(UserCreationForm):
         model = User
         fields = ['email', 'password']
 
+        widgets = {
+            'password': forms.PasswordInput(
+                attrs={
+                    'type': 'password',
+                }
+            )
+        }
+
 
 
 class UserUpdateForm(forms.ModelForm):
