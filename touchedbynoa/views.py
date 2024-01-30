@@ -46,9 +46,9 @@ def hairstyles(request):
     return response
 
 def price_guide(request):
-    ponytails = Hairstyles.objects.filter(title="Xpresion")
-    cornrows = Hairstyles.objects.filter(title="Alicia Keys")
-    knotless = Hairstyles.objects.filter(title="Bohemian")
+    ponytails = Hairstyles.objects.filter(title="2 Pig Ponytails")
+    cornrows = Hairstyles.objects.filter(title="Snake Heart Feed")
+    knotless = Hairstyles.objects.filter(title="Fulani Braids")
 
     context = {
         "ponytails": ponytails,

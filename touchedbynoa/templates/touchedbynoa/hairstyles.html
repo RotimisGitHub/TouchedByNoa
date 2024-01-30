@@ -1,6 +1,12 @@
 {% extends 'touchedbynoa/component/_base.html' %}
 {% load humanize %}
 {% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/hairstyles/style.css' %}" media="screen">
+
+{% endblock %}
+
 {% block content %}
 
 <main class="grid">
@@ -13,29 +19,10 @@
             <p>We promise you a new look and more importantly, a new attitude.</p>
         </section>
 
-        <section class="titleServiceContent_styles">
-                <h1 class="title titleServices">Ponytail Hairstyles</h1>
-                <div class="lineSeparator lineSeparatorDanger">✻</div>
-        </section>
-
-        <section class="hairstyle-group">
-            {% for ponytail in ponytails %}
-            <section class="hairstylesCard">
-                <img src="{{ ponytail.image.url }}" alt="{{ ponytail.title }}">
-                <h2 style="margin: 0.5em;">{{ ponytail.title }}</h2>
-                <p style="margin: 0.75em;">{{ ponytail.description }}</p>
-
-                <a href="{% url 'appointments' pk=ponytail.id %}">
-                    <button type="button" style="margin-left: 5em;">Book</button>
-                </a>
-
-            </section>
-            {% endfor %}
-        </section>
 
         <section class="titleServiceContent_styles">
-                <h1 class="title titleServices">Cornrow Hairstyles</h1>
-                <div class="lineSeparator lineSeparatorDanger">✻</div>
+            <h1 class="title titleServices">Cornrow Hairstyles</h1>
+            <div class="lineSeparator lineSeparatorDanger">✻</div>
         </section>
 
         <section class="hairstyle-group">
@@ -43,6 +30,7 @@
             <section class="hairstylesCard">
                 <img src="{{ cornrow.image.url }}" alt="{{ cornrow.title }}">
                 <h2>{{ cornrow.title }}</h2>
+                <p style="margin: 0.75em;">{{ cornrow.description }}</p>
                 <a href="{% url 'appointments' pk=cornrow.id %}">
                     <button type="button">Book</button>
                 </a>
@@ -52,8 +40,8 @@
 
         <section class="titleServiceContent_styles">
 
-                <h1 class="title titleServices">Knotless Braids Styles</h1>
-                <div class="lineSeparator lineSeparatorDanger">✻</div>
+            <h1 class="title titleServices">Knotless Braids Styles</h1>
+            <div class="lineSeparator lineSeparatorDanger">✻</div>
 
         </section>
 
@@ -62,9 +50,34 @@
             <section class="hairstylesCard">
                 <img src="{{ knotless_iter.image.url }}" alt="{{ knotless_iter.title }}">
                 <h2>{{ knotless_iter.title }}</h2>
+                <p style="margin: 0.75em;">{{ knotless_iter.description }}</p>
                 <a href="{% url 'appointments' pk=knotless_iter.id %}">
                     <button type="button">Book</button>
                 </a>
+            </section>
+
+
+            {% endfor %}
+        </section>
+
+        <section class="titleServiceContent_styles">
+            <h1 class="title titleServices">Ponytail Hairstyles</h1>
+            <div class="lineSeparator lineSeparatorDanger">✻</div>
+        </section>
+
+        <section class="hairstyle-group">
+            {% for ponytail in ponytails %}
+            <section class="hairstylesCard">
+                <img src="{{ ponytail.image.url }}" alt="{{ ponytail.title }}">
+                <h2 style="margin: 0.5em;">{{ ponytail.title }}</h2>
+                <p style="margin: 0.75em;">{{ ponytail.description }}</p>
+
+                <div class="button-hairstyle">
+                    <a href="{% url 'appointments' pk=ponytail.id %}">
+                        <button type="button">Book</button>
+                    </a>
+                </div>
+
             </section>
             {% endfor %}
         </section>

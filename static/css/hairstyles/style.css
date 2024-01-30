@@ -1,0 +1,51 @@
+.hairstyles {
+    display: flex;
+    flex-direction: column; /* Display groups in a column layout */
+    align-items: center;
+    margin: 5em 0;
+}
+
+.hairstyle-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1em; /* Adjust the margin between groups as needed */
+}
+
+.titleServiceContent p {
+	margin-top: 1.5em;
+}
+
+.hairstylesCard {
+	max-width: 333px;
+
+	box-shadow: 10px 10px 18px 1px rgba(0, 0, 0, 0.36);
+	-webkit-box-shadow: 10px 10px 18px 1px rgba(0, 0, 0, 0.36);
+	-moz-box-shadow: 10px 10px 18px 1px rgba(0, 0, 0, 0.36);
+	text-align: center;
+	padding: 2em 1em;
+	margin-bottom: 2em;
+}
+.hairstylesCard img {
+	width: 10em;
+	height: 12em;
+	object-fit: cover;
+	border-radius: 50%;
+}
+
+
+.hairstyleTitle {
+	margin: 1em 0;
+	text-transform: uppercase;
+	font-weight: bold;
+	color: #000;
+}
+.hairstylesCard .cta {
+	display: inline-block;
+}
+
+.button-hairstyle {
+    text-align: center;
+}

@@ -1,11 +1,10 @@
-from django.urls import path
+from django.urls import path, re_path
 from .views import *
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('register/', register, name='register'),
-    path('profile/', profile, name='profile'),
-    path('login/', auth_views.LoginView.as_view(template_name="users/login.html"), name='login'),
+    re_path(r'^register/$', register, name='register'),
+    re_path(r'^login/$', login_view, name='login'),
     path('logout/', custom_logout, name='logout'),
     path('password-reset/', auth_views.PasswordResetView.as_view(
         template_name="users/password_reset.html"),

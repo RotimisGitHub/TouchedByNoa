@@ -12,3 +12,5 @@ export AWS_STORAGE_BUCKET_NAME="touchedbynoa"
 export EMAIL_ADDRESS="homebodyplug@gmail.com"
 export EMAIL_PASSWORD="jett bebt bknv cezk"
 export DEBUG_VALUE='True'
+export PAYPAL_CLIENT_ID="AZl5Fi-Iz2v_CathWIDYQp1zyIjMnVQ8JA2aEv_FPez1nu6nxp-j6yLRGcP0S19zWbU_vbGuvGACgyFa"
+export PAYPAL_SECRET_KEY="ELWZQB3p6H2mgrv0z_od_mSz0gmZOgAO5ft7YWuqbfQrrQvrix0KcuSP1t76PaQOerkGdnHvxpkRE2tP"

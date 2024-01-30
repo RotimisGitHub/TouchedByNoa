@@ -4,29 +4,30 @@
 {% load tailwind_filters %}
 
 
-<head>
-    <title>Login</title>
-</head>
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/auth/style.css' %}" media="screen">
+
+{% endblock %}
 
 {% block content %}
 <main class="grid">
     <section class="gridContent auth">
-        <h1 class="title-signin">sign in</h1>
+        <h1 class="title-signin">Sign In</h1>
 
         <form class="form" method="POST" action="{% url 'login' %}">
             {% csrf_token %}
             <section class="formControl signin">
-                <label for="username"></label>
-                {{ form.username }}
+                <label for="email">Email:</label>
+                {{ form.email }}
                 <!-- Placeholder for Django logic to handle input -->
             </section>
             <section class="formControl signin">
-                <label for="password"></label>
+                <label for="password">Password:</label>
                 {{ form.password }}
                 <!-- Placeholder for Django logic to handle input -->
             </section>
             <section class="sectionSubmit">
-                <a href="{% url 'password-reset' %}">Forgot Password?</a>
+<!--                <a href="{% url 'password-reset' %}">Forgot Password?</a>-->
                 <button type="submit" class="login btn">
                     Login
                 </button>

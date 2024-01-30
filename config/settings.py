@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-import stripe
-import corsheaders.middleware
 import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -50,6 +48,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_tailwind",
     'tailwind',
+    'sslserver',
 
 
     # Apps
@@ -57,7 +56,6 @@ INSTALLED_APPS = [
     'users',
     'storages',
     'rest_framework',
-    'corsheaders',
 
  ]
 
@@ -71,7 +69,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'allauth.account.middleware.AccountMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 X_FRAME_OPTIONS = 'ALLOWALL'
 
@@ -132,6 +129,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'users.CustomUser'
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -156,6 +155,12 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
+# Media / Static
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+MEDIAFILES_LOCATION = 'media'
+STATICFILES_LOCATION = 'static'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -171,12 +176,11 @@ JAZZMIN_UI_TWEAKS = {
 }
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
-
 CRISPY_TEMPLATE_PACK = "tailwind"
 
 LOGIN_REDIRECT_URL = "home"
 LOGIN_URL = "login"
-
+REDIRECT_DOMAIN = 'http://127.0.0.1:8000'
 
 # Amazon
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -187,11 +191,7 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
 
-# Media / Static
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-MEDIAFILES_LOCATION = 'media'
-STATICFILES_LOCATION = 'static'
+
 
 # Stripe API Integration
 
@@ -199,10 +199,5 @@ STRIPE_SECRET_KEY = os.environ.get("STRIPE_API_KEY")
 STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET")
 PRODUCT_PRICE = os.environ.get("PRODUCT_PRICE")
 
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
-REDIRECT_DOMAIN = 'http://127.0.0.1:8000'
 
 django_heroku.settings(locals())

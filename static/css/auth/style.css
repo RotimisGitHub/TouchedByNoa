@@ -1,0 +1,100 @@
+
+/* /////////////////////////////////////////////////////////// */
+/* signin and register page */
+.auth {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: auto auto;
+
+	max-width: 400px;
+	width: 100%;
+	margin: 2em auto 4em;
+	-webkit-box-shadow: 10px 10px 31px 0px rgba(0, 0, 0, 0.32);
+	-moz-box-shadow: 10px 10px 31px 0px rgba(0, 0, 0, 0.32);
+	box-shadow: 10px 10px 31px 0px rgba(0, 0, 0, 0.32);
+	padding: 2em;
+}
+.title-signin {
+	text-align: center;
+	text-transform: uppercase;
+	margin: 0.5em 0 1em;
+}
+
+/* /////////////////////////////////////////////////////////// */
+/* sign in */
+.formControl {
+	margin-top: 1em;
+	position: relative;
+}
+input {
+	border-color: rgba(44, 44, 44, 0.15);
+	color: #6a6a6a;
+	padding: 1em;
+	border-radius: 8px;
+	width: 100%;
+	padding: 1em 1em 1em 3em;
+}
+.formControl svg {
+	position: absolute;
+	top: 50%;
+	left: 10px;
+	transform: translateY(-50%);
+	font-size: 1.2rem;
+	color: #fbbaa1;
+}
+.sectionSubmit {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 1em 0;
+}
+.login {
+	padding: 0.7em 2em;
+	font-size: 0.95rem;
+	width: 100%;
+}
+.btn.login {
+	width: initial;
+}
+.divider {
+	text-align: center;
+	margin: 1em 0;
+	text-transform: uppercase;
+	position: relative;
+}
+.line {
+	display: block;
+	width: 50%;
+	height: 1px;
+	background-color: #000;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%);
+	opacity: 0.2;
+}
+.divider span:last-child {
+	background-color: #fff;
+	display: inline-block;
+	position: relative;
+	padding: 0 0.5em;
+}
+.googleAuth {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 3em;
+	margin-top: 2em;
+}
+button.googleBtn {
+	font-size: 1rem;
+	text-align: center;
+	padding: 0.7em 2em;
+	/* margin-inline: auto; */
+}
+
+@media (min-width: 800px) {
+	.formControl.date {
+		margin-top: 0;
+	}
+}

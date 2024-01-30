@@ -1,7 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import User
+from users.models import CustomUser
 from config.storage_backends import MediaStorage
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 SIZE_CHOICES = (
     ("Small", "Small"),
