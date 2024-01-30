@@ -41,7 +41,6 @@ def hairstyles(request):
     }
 
     response = render(request, 'touchedbynoa/hairstyles.html', context)
-    response['X-Frame-Options'] = 'SAMEORIGIN'
 
     return response
 

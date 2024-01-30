@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 # DEBUG = False
 
-ALLOWED_HOSTS = ['touchedbynoa.com', 'touchedbynoa-57ca3931f654.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['app.touchedbynoa.com', 'touchedbynoa-57ca3931f654.herokuapp.com', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -70,7 +70,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
 ]
-X_FRAME_OPTIONS = 'ALLOWALL'
 
 
 REST_FRAMEWORK = {
@@ -191,8 +190,6 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
 
-
-import os
 os.environ['DJANGO_COLLECTSTATIC'] = 'false'
 
 # Stripe API Integration
