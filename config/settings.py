@@ -29,6 +29,8 @@ DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 
 ALLOWED_HOSTS = ['*']
 
+SESSION_COOKIE_SECURE = True
+
 # Application definition
 
 SITE_ID = 1
