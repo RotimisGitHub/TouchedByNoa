@@ -192,6 +192,8 @@ AWS_DEFAULT_ACL = None
 AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
 
 
+import os
+os.environ['DJANGO_COLLECTSTATIC'] = 'false'
 
 # Stripe API Integration
 
