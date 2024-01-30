@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
 # DEBUG = False
 
-ALLOWED_HOSTS = ['app.touchedbynoa.com', 'touchedbynoa-57ca3931f654.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
